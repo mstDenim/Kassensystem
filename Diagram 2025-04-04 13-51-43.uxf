@@ -1,0 +1,53 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>0</x><y>280</y><w>230</w><h>120</h></coordinates><panel_attributes>Produkt
+--
++ produktNamen String
++ produktBestand  
+
+--
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>350</x><y>410</y><w>150</w><h>90</h></coordinates><panel_attributes>ProduktPosition
+--
++ menge int 
++ produktPreis double
+--
++ wertDergekaufenMenge(menge int, produktPreis): double </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>140</x><y>390</y><w>230</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>210;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>490</x><y>270</y><w>80</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>60;10;60;180;10;180</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1020</x><y>300</y><w>150</w><h>100</h></coordinates><panel_attributes>SimpleClass</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>470</x><y>180</y><w>150</w><h>100</h></coordinates><panel_attributes>Kaufbeleg
+--
++  produkteImKorb List&lt;ProduktPosition&gt; 
++ gesamtpreis double
++ isQuittung Boolean
+--
++ isBon(isQuittung): String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>830</x><y>80</y><w>240</w><h>130</h></coordinates><panel_attributes>Lagerbestand
+--
++ produktnameLager String
++ bestand int
++ bestandVorhanden Boolean
++ bestandÄndern Boolean
+--
++ ÄndereBestand(Boolean)
++ findeProdukt(String)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>100</x><y>120</y><w>40</w><h>180</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>20;10;10;160</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1010</x><y>220</y><w>100</w><h>40</h></coordinates><panel_attributes>Lagerbestand
+--
++ produktnameLager String
++ bestand int
++ bestandÄndern Boolean
+--
++ ÄndereBestand(Boolean)
++ findeProdukt(String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>340</x><y>60</y><w>100</w><h>40</h></coordinates><panel_attributes>Kasse
+--
++</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>230</x><y>70</y><w>130</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;110;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>0</y><w>240</w><h>130</h></coordinates><panel_attributes>Lagerbestand
+--
++ produktnummerLager String
++ bestand int
++ bestandVorhanden Boolean
++ bestandÄndern Boolean
+--
++ ÄndereBestand(Boolean)
++ findeProdukt(String)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>0</y><w>240</w><h>130</h></coordinates><panel_attributes>Lagerbestand
+--
++ produktnummerLager String
++ bestand int
++ bestandVorhanden Boolean
++ bestandÄndern Boolean
+--
++ ÄndereBestand(Boolean)
++ findeProdukt(String)</panel_attributes><additional_attributes></additional_attributes></element></diagram>
