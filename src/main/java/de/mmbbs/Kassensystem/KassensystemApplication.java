@@ -8,6 +8,9 @@ public class KassensystemApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(KassensystemApplication.class, args);
+
+		//DAO dao = new DAO();
+		//dao.initDatabaseTable();
 	}
 
 }
