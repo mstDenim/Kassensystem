@@ -1,0 +1,15 @@
+meta {
+  name: get Product Information
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:8080/get-product-data-by-name?product_name=Tabak
+  body: none
+  auth: inherit
+}
+
+params:query {
+  product_name: Tabak
+}

@@ -1,0 +1,18 @@
+meta {
+  name: insert Product
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/insert-product?product_name=Tabak&price=5.00&stock=20&is_vat_reduced=0
+  body: none
+  auth: inherit
+}
+
+params:query {
+  product_name: Tabak
+  price: 5.00
+  stock: 20
+  is_vat_reduced: 0
+}
