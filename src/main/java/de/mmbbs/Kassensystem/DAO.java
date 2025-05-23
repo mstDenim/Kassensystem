@@ -21,8 +21,10 @@ public class DAO {
                     "    PRODUCT_NAME CHARACTER VARYING(150) not null,\n" +
                     "    TIMESTAMP TIMESTAMP not null,\n" +
                     "    PRICE DOUBLE not null,\n" +
-                    "    STOCK BIGINT not null, \n" +
+                    "    UNIT_STOCK DOUBLE, \n" +
+                    "    WEIGHT_STOCK DOUBLE, \n" +
                     "    IS_VAT_REDUCED BOOLEAN not null,\n" +
+                    "    IS_UNIT_NOT_WEIGHT BOOLEAN not null,\n" +
                     "    CONSTRAINT FILES_PK\n" +
                     "    PRIMARY KEY (ID),\n" +
                     "    CONSTRAINT PRODUCT_NAME_UNIQUE UNIQUE (PRODUCT_NAME)\n" +

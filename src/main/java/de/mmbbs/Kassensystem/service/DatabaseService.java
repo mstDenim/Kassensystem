@@ -26,4 +26,7 @@ public class DatabaseService {
     public void retrieveProductInfoByProductName(String product_name) {
         dao.retrieveProductInformation(product_name);
     }
+
+
+
 }

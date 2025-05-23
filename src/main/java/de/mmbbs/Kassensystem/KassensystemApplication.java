@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class KassensystemApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(KassensystemApplication.class, args);
+		//SpringApplication.run(KassensystemApplication.class, args);
 
 		//DAO dao = new DAO();
 		//dao.initDatabaseTable();
