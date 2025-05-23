@@ -1,47 +1,33 @@
 package de.mmbbs.Kassensystem;
 
 import org.springframework.stereotype.Component;
-
 import java.sql.*;
 
 @Component
 public class DAO {
 
-    // Database URL and Credentials
     static final String URL = "jdbc:h2:~/Workspaces/IntelliJ/Kassensystem/Kassensystem";
     static final String USER = "sa";
     static final String PASSWORD = "";
 
-    // Database Table DDL
-    // Maybe stueck & kg booleans
-
     static final String PRODUCTS_TABLE_INIT =
-                    "create table PRODUCTS (\n" +
+            "create table PRODUCTS (\n" +
                     "    ID BIGINT auto_increment,\n" +
                     "    PRODUCT_NAME CHARACTER VARYING(150) not null,\n" +
                     "    TIMESTAMP TIMESTAMP not null,\n" +
                     "    PRICE DOUBLE not null,\n" +
-                    "    UNIT_STOCK DOUBLE, \n" +
-                    "    WEIGHT_STOCK DOUBLE, \n" +
+                    "    UNIT_STOCK DOUBLE,\n" +
+                    "    WEIGHT_STOCK DOUBLE,\n" +
                     "    IS_VAT_REDUCED BOOLEAN not null,\n" +
                     "    IS_UNIT_NOT_WEIGHT BOOLEAN not null,\n" +
-                    "    CONSTRAINT FILES_PK\n" +
-                    "    PRIMARY KEY (ID),\n" +
+                    "    CONSTRAINT FILES_PK PRIMARY KEY (ID),\n" +
                     "    CONSTRAINT PRODUCT_NAME_UNIQUE UNIQUE (PRODUCT_NAME)\n" +
                     ");";
 
-    // Queries
-    static final String INSERT_PRODUCT = "INSERT INTO PRODUCTS (PRODUCT_NAME, PRICE, STOCK, IS_VAT_REDUCED, TIMESTAMP) VALUES (?,?,?,?,?)";
+    static final String INSERT_PRODUCT = "INSERT INTO PRODUCTS (PRODUCT_NAME, PRICE, UNIT_STOCK, WEIGHT_STOCK, IS_VAT_REDUCED, IS_UNIT_NOT_WEIGHT, TIMESTAMP) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     static final String RETRIEVE_PRODUCT_INFORMATION = "SELECT * FROM PRODUCTS WHERE PRODUCT_NAME = ?";
-    // Prolly redundant
-    static final String RETRIEVE_CURRENT_STOCK = "SELECT * FROM CALLING_DATA WHERE DOCUMENT_NAME = ?";
 
-    static final String RETRIEVE_STOCK_BY_PRODUCT_NAME = "SELECT * FROM CALLING_DATA WHERE DOCUMENT_NAME = ?";
-
-    static final String UPDATE_STOCK_COUNT = "have to update here";
-
-    // Methods
     public void initDatabaseTable() {
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
             try (Statement statement = connection.createStatement()) {
@@ -54,15 +40,17 @@ public class DAO {
         }
     }
 
-    public void insertProduct(String product_name, double price, int stock,  boolean is_vat_reduced) {
+    public void insertProduct(String product_name, double price, double unit_stock, double weight_stock, boolean is_vat_reduced, boolean is_unit) {
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
             Timestamp currentSqlDate = new Timestamp(System.currentTimeMillis());
             try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PRODUCT)) {
                 preparedStatement.setString(1, product_name);
                 preparedStatement.setDouble(2, price);
-                preparedStatement.setInt(3, stock);
-                preparedStatement.setBoolean(4, is_vat_reduced);
-                preparedStatement.setTimestamp(5, currentSqlDate);
+                preparedStatement.setDouble(3, unit_stock);
+                preparedStatement.setDouble(4, weight_stock);
+                preparedStatement.setBoolean(5, is_vat_reduced);
+                preparedStatement.setBoolean(6, is_unit);
+                preparedStatement.setTimestamp(7, currentSqlDate);
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -72,24 +60,11 @@ public class DAO {
         }
     }
 
-    public void retrieveProductInformation(String product_name) {
+    public ResultSet retrieveProductInformation(String product_name) {
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(RETRIEVE_PRODUCT_INFORMATION)) {
-                preparedStatement.setString(1, product_name);
-                preparedStatement.executeQuery();
-                try (ResultSet resultSet = preparedStatement.getResultSet()) {
-                    while (resultSet.next()) {
-                        int id = resultSet.getInt("ID");
-                        String productName = resultSet.getString("PRODUCT_NAME");
-                        double price = resultSet.getDouble("PRICE");
-                        boolean vat_reduced = resultSet.getBoolean("IS_VAT_REDUCED");
-                        System.out.println("ID: " + id + "\n"
-                                + "Product Name: " + productName + "\n"
-                                + "Price : " + price + "\n"
-                                + "Is Vat reduced (7% MwSt): " + vat_reduced + "\n");
-                    }
-                }
-            }
+            PreparedStatement preparedStatement = connection.prepareStatement(RETRIEVE_PRODUCT_INFORMATION);
+            preparedStatement.setString(1, product_name);
+            return preparedStatement.executeQuery();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
